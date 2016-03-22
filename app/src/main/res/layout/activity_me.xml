@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    android:weightSum="1">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="0.53"
+
+        android:id="@+id/relativeLayout_me"
+        android:background="@drawable/bg_me_bg">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="160dp"
+            android:id="@+id/imageView"
+
+            android:src="@drawable/bg_me"
+            android:scaleType="fitXY"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+
+            />
+        <example.wangmuge.com.picsharewmg.widget.CircleImageView
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/iv_me"
+
+            app:border_width="2dp"
+            app:border_color="@color/green"
+            android:layout_centerInParent="true"
+
+            android:layout_alignParentBottom="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:id="@+id/tv_me_name"
+            android:layout_above="@+id/iv_me"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+
+            android:textColor="#8f8c8c"
+            android:id="@+id/tv_me_info"
+            android:layout_above="@+id/tv_me_name"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relativeLayout_me">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/swiperefreshme"
+
+            >
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerView_me"
+
+            >
+
+
+        </android.support.v7.widget.RecyclerView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+</RelativeLayout>

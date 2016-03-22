@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="460dp"
+
+    android:orientation="vertical"
+
+    android:layout_marginTop="20dp"
+
+    android:layout_marginLeft="25dp"
+
+    android:background="@drawable/bg_card"
+    >
+
+
+
+
+
+        <example.wangmuge.com.picsharewmg.widget.CircleImageView
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+
+        android:id="@+id/iv"
+
+            app:border_width="2dp"
+            app:border_color="@color/green"
+
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:id="@+id/tv_text"
+        android:maxWidth="280dp"
+        android:text="Text1117777"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+
+
+        android:lines="3" />
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content">
+
+        <example.wangmuge.com.picsharewmg.widget.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/iv_header"
+                android:layout_centerInParent="true"
+
+               android:layout_marginLeft="30dp"
+                app:border_width="1dp"
+                app:border_color="@color/green"/>
+
+
+
+            <TextView
+
+
+                android:layout_marginLeft="5dp"
+                android:id="@+id/tv_name"
+                android:text="wangmuge"
+                android:layout_width="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="bottom"
+
+                android:layout_height="30dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="180dp"
+            android:background="@drawable/btn_ib_like"
+            android:text="100"
+            android:textColor="#ffffff"
+            android:id="@+id/bt_like"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

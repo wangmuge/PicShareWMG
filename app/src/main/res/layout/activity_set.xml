@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/rl_header"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/bg_card"
+        >
+
+
+        <example.wangmuge.com.picsharewmg.widget.CircleImageView
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/set_iv_header"
+            android:src="@drawable/header"
+            app:border_width="2dp"
+            app:border_color="@color/green"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_alignLeft="@+id/set_iv_header"
+            android:layout_marginLeft="120dp"
+            android:text="点击修改头像     >"
+
+            android:layout_alignParentRight="true"
+            android:id="@+id/set_header"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="right" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_card"
+        android:layout_below="@+id/rl_header"
+        android:layout_alignStart="@+id/rl_header"
+        android:id="@+id/relativeLayout2">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+
+
+            android:layout_marginLeft="0dp"
+            android:text="点击修改用户名                               >"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:id="@+id/set_username"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_card"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_alignStart="@+id/relativeLayout2"
+        android:id="@+id/relativeLayout3">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+
+
+            android:layout_marginLeft="0dp"
+            android:text="点击修改密码                                   >"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:id="@+id/set_password"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_card"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_alignParentStart="true">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+
+
+            android:layout_marginLeft="0dp"
+            android:text="点击修改简介                                   >"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:id="@+id/set_info"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avloadingIndicatorView_set"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            app:indicator="Pacman"
+            app:indicator_color="#2fcc6a" />
+    </RelativeLayout>
+</RelativeLayout>

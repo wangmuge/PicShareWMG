@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PicShareWMG</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_img_detail">ImgDetailActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="save_picture">保存图片</string>
+    <string name="save_picture_failed">保存失败</string>
+    <string name="save_picture_success">图片成功保存至%s目录</string>
+</resources>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="270dp"
+
+    android:orientation="vertical"
+
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/bg_card"
+    >
+    <!--android:layout_marginLeft="15dp"-->
+
+    <!--android:layout_marginRight="15dp"-->
+
+
+
+
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="380dp"-->
+        <!--android:layout_height="280dp"-->
+        <!--android:background="@drawable/bg_card"-->
+        <!--android:layout_marginLeft="15dp"-->
+
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_marginBottom="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+
+
+        <!-->-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+            <!--android:text="wangmuge"-->
+            <!--android:id="@+id/tv_name" />-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="380dp"-->
+            <!--android:layout_height="200dp"-->
+            <!--android:id="@+id/iv"-->
+            <!--android:src="@drawable/add"-->
+
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+            <!--android:text="wangmuge"-->
+            <!--android:id="@+id/tv_text" />-->
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_height="40dp">
+        <!--<ImageView-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:id="@+id/iv_header"-->
+            <!--android:src="@drawable/header"-->
+
+            <!--/>-->
+        <example.wangmuge.com.picsharewmg.widget.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/iv_header"
+            android:layout_centerInParent="true"
+            android:src="@drawable/header"
+            app:border_width="2dp"
+            app:border_color="@color/green"/>
+
+
+
+        <TextView
+
+            android:layout_marginRight="140dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="bottom"
+
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+
+
+        card_view:cardCornerRadius="20dp"
+
+
+        >
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_gravity="center"
+        android:id="@+id/iv"
+        android:src="@drawable/test"
+
+        />
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>
