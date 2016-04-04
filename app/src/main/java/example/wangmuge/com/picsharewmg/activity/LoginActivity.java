@@ -62,19 +62,30 @@ public class LoginActivity extends Activity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+
 
 
         perferences = getSharedPreferences("user", 0);
         editor = perferences.edit();
+        if (perferences.getBoolean("firststart", true)) {
+            editor = perferences.edit();
+            //将登录标志位设置为false，下次登录时不在显示首次登录界面
+            editor.putBoolean("firststart", false);
+            editor.commit();
+            Intent intent = new Intent();
+            intent.setClass(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
 //        tvTitle.setAnimateType(HTextViewType.ANVIL);
 //        tvTitle.animateText("Welcome"); // animate
-
-
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         initView();
 
     }
+
+
 
     @Override
     public void onTrimMemory(int level) {
@@ -121,21 +132,69 @@ public class LoginActivity extends Activity  {
             }
         });
 
-        username.addTextChangedListener(textwatcher);
+        EditWatcher();
+
         tvClearName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 username.setText("");
+                tvClearName.setVisibility(View.GONE);
             }
         });
         tvClearPwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 password.setText("");
+                tvClearPwd.setVisibility(View.GONE);
             }
         });
 
+    }
+
+    private void EditWatcher() {
+        username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence != null ){
+                    tvClearName.setVisibility(View.VISIBLE);
+                }else{
+                    tvClearName.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence != null){
+                    tvClearPwd.setVisibility(View.VISIBLE);
+                }else{
+                    tvClearPwd.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void Volley_Post() {
@@ -222,43 +281,6 @@ public class LoginActivity extends Activity  {
         return user;
     }
 
-    private TextWatcher textwatcher = new TextWatcher() {
 
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-//
-//            if(username.getText().toString().length()>0){
-//                tvClearName.setVisibility(View.VISIBLE);
-//                tvClearPwd.setVisibility(View.GONE);
-//            }
-//            if (password.getText().toString().length()>0){
-//                tvClearPwd.setVisibility(View.VISIBLE);
-//                tvClearName.setVisibility(View.GONE);
-//            }
-
-            tvClearName.setVisibility(View.VISIBLE);
-            tvClearPwd.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
-        }
-    };
 
 }
-//        username.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent();
-//                llogin.setText(i.getExtras().getString("name"));
-//                password.setText(i.getExtras().getString("psw"));
-//
-//            }
-//        });
