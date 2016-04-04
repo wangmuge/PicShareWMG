@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +35,7 @@ import example.wangmuge.com.picsharewmg.http.MyVolley;
 import example.wangmuge.com.picsharewmg.http.util;
 import example.wangmuge.com.picsharewmg.model.User;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity  {
 
 
     @Bind(R.id.username)
@@ -47,6 +50,10 @@ public class LoginActivity extends Activity {
     HTextView tvTitle;
     @Bind(R.id.avloadingIndicatorView)
     AVLoadingIndicatorView avloadingIndicatorView;
+    @Bind(R.id.tv_clear_name)
+    ImageButton tvClearName;
+    @Bind(R.id.tv_clear_pwd)
+    ImageButton tvClearPwd;
 
     private SharedPreferences perferences;
     private SharedPreferences.Editor editor;
@@ -86,9 +93,9 @@ public class LoginActivity extends Activity {
             public void onClick(View view) {
 
                 avloadingIndicatorView.setVisibility(View.VISIBLE);
-                TimerTask task = new TimerTask(){
+                TimerTask task = new TimerTask() {
 
-                    public void run(){
+                    public void run() {
 
 
                         Volley_Post();
@@ -113,6 +120,22 @@ public class LoginActivity extends Activity {
                 startActivity(ii);
             }
         });
+
+        username.addTextChangedListener(textwatcher);
+        tvClearName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                username.setText("");
+            }
+        });
+        tvClearPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                password.setText("");
+            }
+        });
+
     }
 
     private void Volley_Post() {
@@ -154,8 +177,6 @@ public class LoginActivity extends Activity {
 
                 avloadingIndicatorView.setVisibility(View.INVISIBLE);
                 finish();
-
-
 
 
             }
@@ -201,6 +222,35 @@ public class LoginActivity extends Activity {
         return user;
     }
 
+    private TextWatcher textwatcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+//
+//            if(username.getText().toString().length()>0){
+//                tvClearName.setVisibility(View.VISIBLE);
+//                tvClearPwd.setVisibility(View.GONE);
+//            }
+//            if (password.getText().toString().length()>0){
+//                tvClearPwd.setVisibility(View.VISIBLE);
+//                tvClearName.setVisibility(View.GONE);
+//            }
+
+            tvClearName.setVisibility(View.VISIBLE);
+            tvClearPwd.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 
 }
 //        username.setOnClickListener(new View.OnClickListener() {

@@ -40,13 +40,15 @@
             android:textSize="25dp"
             android:layout_alignLeft="@+id/set_iv_header"
             android:layout_marginLeft="120dp"
-            android:text="点击修改头像     >"
+            android:text="修改头像"
 
+            android:drawableRight="@drawable/icon_right"
             android:layout_alignParentRight="true"
             android:id="@+id/set_header"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:gravity="right" />
+            android:layout_marginRight="20dp"
+             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -61,16 +63,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
-
-
-            android:layout_marginLeft="0dp"
-            android:text="点击修改用户名                               >"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
+            android:textSize="25sp"
+            android:layout_marginLeft="40dp"
+            android:text="修改用户名"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
             android:id="@+id/set_username"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/icon_edit"
+            android:drawableRight="@drawable/icon_right"
+            />
 
 
     </RelativeLayout>
@@ -86,18 +89,20 @@
 
 
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
-
-
-            android:layout_marginLeft="0dp"
-            android:text="点击修改密码                                   >"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
-            android:id="@+id/set_password"
+            android:textSize="25sp"
+            android:layout_marginLeft="40dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/icon_edit"
+            android:drawableRight="@drawable/icon_right"
+            android:text="修改密码"
+            android:id="@+id/set_password"
+ />
 
     </RelativeLayout>
 
@@ -109,21 +114,21 @@
         android:layout_below="@+id/relativeLayout3"
         android:layout_alignParentStart="true">
 
-
-
         <TextView
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
-
-
-            android:layout_marginLeft="0dp"
-            android:text="点击修改简介                                   >"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
-            android:id="@+id/set_info"
+            android:textSize="25sp"
+            android:layout_marginLeft="40dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/icon_edit"
+            android:drawableRight="@drawable/icon_right"
+            android:text="修改简介"
+            android:id="@+id/set_info"
+/>
 
     </RelativeLayout>
     <RelativeLayout
