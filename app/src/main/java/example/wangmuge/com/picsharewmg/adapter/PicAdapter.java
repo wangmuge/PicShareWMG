@@ -113,6 +113,7 @@ public class PicAdapter extends RecyclerView.Adapter<PicAdapter.MyViewHolder> {
             public void onClick(View view) {
                 Log.i("like","like");
 
+
                 String url = util.server_updatelike + "sid=" + sid;
 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {

@@ -192,7 +192,7 @@ public class SetActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 editor.putString("header", getPhotoFileName());
-                editor.commit();
+                editor.apply();//
                 Toast.makeText(SetActivity.this, "上传头像成功", Toast.LENGTH_SHORT).show();
                // avloadingIndicatorViewSet.setVisibility(View.INVISIBLE);
 

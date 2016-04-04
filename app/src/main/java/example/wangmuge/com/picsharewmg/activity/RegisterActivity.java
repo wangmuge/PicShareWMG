@@ -1,8 +1,8 @@
 package example.wangmuge.com.picsharewmg.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +25,7 @@ import example.wangmuge.com.picsharewmg.R;
 import example.wangmuge.com.picsharewmg.http.MyVolley;
 import example.wangmuge.com.picsharewmg.http.util;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
     @Bind(R.id.reg_username)
     EditText regUsername;
@@ -43,6 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         ButterKnife.bind(this);
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 Toast.makeText(RegisterActivity.this,
                         "注册失败", Toast.LENGTH_SHORT).show();
+                avloadingIndicatorViewReg.setVisibility(View.INVISIBLE);
 
 
             }

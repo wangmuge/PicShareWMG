@@ -20,7 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.hanks.htextview.HTextView;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONObject;
@@ -46,8 +45,8 @@ public class LoginActivity extends Activity  {
     Button login;
     @Bind(R.id.textView)
     TextView textView;
-    @Bind(R.id.tv_title)
-    HTextView tvTitle;
+//    @Bind(R.id.tv_title)
+//    HTextView tvTitle;
     @Bind(R.id.avloadingIndicatorView)
     AVLoadingIndicatorView avloadingIndicatorView;
     @Bind(R.id.tv_clear_name)
@@ -55,8 +54,9 @@ public class LoginActivity extends Activity  {
     @Bind(R.id.tv_clear_pwd)
     ImageButton tvClearPwd;
 
-    private SharedPreferences perferences;
     private SharedPreferences.Editor editor;
+
+
 
 
     @Override
@@ -64,14 +64,13 @@ public class LoginActivity extends Activity  {
         super.onCreate(savedInstanceState);
 
 
-
-        perferences = getSharedPreferences("user", 0);
+        SharedPreferences perferences = getSharedPreferences("user", 0);
         editor = perferences.edit();
         if (perferences.getBoolean("firststart", true)) {
             editor = perferences.edit();
             //将登录标志位设置为false，下次登录时不在显示首次登录界面
             editor.putBoolean("firststart", false);
-            editor.commit();
+            editor.apply();//
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
@@ -235,7 +234,9 @@ public class LoginActivity extends Activity  {
                         + "登录成功", Toast.LENGTH_SHORT).show();
 
                 avloadingIndicatorView.setVisibility(View.INVISIBLE);
+
                 finish();
+
 
 
             }

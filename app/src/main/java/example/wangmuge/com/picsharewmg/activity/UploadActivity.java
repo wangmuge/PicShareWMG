@@ -1,5 +1,6 @@
 package example.wangmuge.com.picsharewmg.activity;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,7 +35,7 @@ import cz.msebera.android.httpclient.Header;
 import example.wangmuge.com.picsharewmg.R;
 import example.wangmuge.com.picsharewmg.http.util;
 
-public class UploadActivity extends AppCompatActivity {
+public class UploadActivity extends Activity {
 
     @Bind(R.id.et_text)
     EditText etText;
@@ -55,7 +55,6 @@ public class UploadActivity extends AppCompatActivity {
     private File mPhotoFile;
     private String mPhotoPath;
 
-    private SharedPreferences perfereneces;
     int userId;
     String title;
 
@@ -214,7 +213,8 @@ public class UploadActivity extends AppCompatActivity {
         //将图片的字节流数据加密成base64字符输出
         String photo = Base64.encodeToString(buffer, 0, buffer.length, Base64.DEFAULT);
 
-        perfereneces = getSharedPreferences("user", 0);
+
+        SharedPreferences perfereneces = getSharedPreferences("user", 0);
         userId = perfereneces.getInt("userid", 0);
         title = etText.getText().toString().trim();
 

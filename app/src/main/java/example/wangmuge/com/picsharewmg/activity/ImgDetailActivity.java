@@ -2,6 +2,7 @@ package example.wangmuge.com.picsharewmg.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -11,12 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.graphics.Bitmap.CompressFormat;
 
 import com.android.volley.toolbox.ImageLoader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -87,8 +86,6 @@ public class ImgDetailActivity extends AppCompatActivity {
                     bitmap.compress(CompressFormat.JPEG, 100, fos);
                     fos.flush();
                     fos.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

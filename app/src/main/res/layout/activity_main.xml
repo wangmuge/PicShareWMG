@@ -81,12 +81,12 @@
             android:layout_height="80px"
             android:src="@drawable/btn_main_set"
             android:tag="设置" />
-        <!--<ImageView-->
-            <!--android:id="@+id/button5"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/add"-->
-            <!--android:tag="thought" />-->
+        <ImageView
+            android:id="@+id/button5"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:src="@drawable/btn_main_switch"
+            android:tag="切换布局" />
 
 
     </example.wangmuge.com.picsharewmg.Nav.ArcMenu>

@@ -1,9 +1,9 @@
 package example.wangmuge.com.picsharewmg.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +26,7 @@ import example.wangmuge.com.picsharewmg.R;
 import example.wangmuge.com.picsharewmg.http.MyVolley;
 import example.wangmuge.com.picsharewmg.http.util;
 
-public class UpdateActivity extends AppCompatActivity {
+public class UpdateActivity extends Activity {
 
     int i;
     @Bind(R.id.update_username)
@@ -39,7 +39,6 @@ public class UpdateActivity extends AppCompatActivity {
     Button update;
     @Bind(R.id.avloadingIndicatorView_update)
     AVLoadingIndicatorView avloadingIndicatorViewUpdate;
-    private SharedPreferences perfereneces;
     private SharedPreferences.Editor editor;
     int userId;
     String username;
@@ -53,7 +52,7 @@ public class UpdateActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Bundle b = getIntent().getExtras();
         i = b.getInt("i");
-        perfereneces = getSharedPreferences("user", 0);
+        SharedPreferences perfereneces = getSharedPreferences("user", 0);
         editor = perfereneces.edit();
         userId = perfereneces.getInt("userid", 0);
         username = perfereneces.getString("username", "");

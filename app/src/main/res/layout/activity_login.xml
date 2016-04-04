@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
         android:layout_alignParentTop="true">
 
 
@@ -22,6 +23,7 @@
             android:id="@+id/avloadingIndicatorView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+
      android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:visibility="invisible"
@@ -42,23 +44,23 @@
         android:layout_marginRight="30dp"
         >
 
-        <com.hanks.htextview.HTextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+        <!--<com.hanks.htextview.HTextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100dp"-->
 
 
 
-            android:layout_marginTop="0dp"
+            <!--android:layout_marginTop="0dp"-->
 
-            android:textSize="30sp"
+            <!--android:textSize="30sp"-->
 
-            android:gravity="center"
-            android:textColor="#FFFFFF"
+            <!--android:gravity="center"-->
+            <!--android:textColor="#FFFFFF"-->
 
 
-            htext:animateType="line"
+            <!--htext:animateType="line"-->
 
-            android:id="@+id/tv_title" />
+            <!--android:id="@+id/tv_title" />-->
 
         <EditText
             android:layout_width="match_parent"
@@ -66,8 +68,9 @@
 
             android:layout_alignBottom="@+id/tv_title"
 
+
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:hint="用户名"
             android:textAlignment="center"
             android:id="@+id/username"
@@ -113,21 +116,23 @@
             android:layout_marginBottom="32dp" />
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:id="@+id/tv_clear_name"
             android:background="@drawable/tv_clear"
             android:layout_alignTop="@+id/username"
+
             android:visibility="gone"
             android:layout_alignParentEnd="true" />
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:id="@+id/tv_clear_pwd"
             android:background="@drawable/tv_clear"
-            android:layout_below="@+id/tv_title"
+
             android:visibility="gone"
+            android:layout_alignTop="@+id/password"
             android:layout_alignParentEnd="true" />
 
 

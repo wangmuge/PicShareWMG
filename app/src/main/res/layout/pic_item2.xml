@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="460dp"
@@ -9,88 +9,111 @@
     android:layout_marginTop="20dp"
 
     android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
 
     android:background="@drawable/bg_card"
     >
-
-
-
-
-
-        <example.wangmuge.com.picsharewmg.widget.CircleImageView
+    <example.wangmuge.com.picsharewmg.widget.CircleImageView
         android:layout_width="280dp"
         android:layout_height="280dp"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true"
+        android:layout_gravity="center"
 
         android:id="@+id/iv"
 
-            app:border_width="2dp"
-            app:border_color="@color/green"
+        app:border_width="2dp"
+        app:border_color="@color/green"
 
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
 
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:id="@+id/tv_text"
-        android:maxWidth="280dp"
-        android:text="Text1117777"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/iv"
+        android:id="@+id/rl2"
 
-
-        android:lines="3" />
+        >
 
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/tv_text"
 
-    <LinearLayout
+            android:maxWidth="280dp"
+            android:layout_marginLeft="60dp"
+            android:text="Text11177fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff77"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+
+
+            android:lines="3"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
+        android:layout_height="80dp"
 
-        android:layout_height="wrap_content">
+        android:id="@+id/rl3"
+        android:layout_below="@id/rl2"
+
+        >
 
         <example.wangmuge.com.picsharewmg.widget.CircleImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:id="@+id/iv_header"
-                android:layout_centerInParent="true"
 
-               android:layout_marginLeft="30dp"
+            android:layout_marginLeft="30dp"
                 app:border_width="1dp"
-                app:border_color="@color/green"/>
+                app:border_color="@color/green"
+            android:layout_marginStart="31dp"
+
+
+            android:layout_alignParentStart="true" />
 
 
 
-            <TextView
+        <TextView
 
 
-                android:layout_marginLeft="5dp"
-                android:id="@+id/tv_name"
-                android:text="wangmuge"
-                android:layout_width="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_gravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/tv_name"
+            android:text="wangmuge"
+            android:layout_width="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
 
-                android:layout_height="30dp" />
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_height="30dp"
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="180dp"
-            android:background="@drawable/btn_ib_like"
-            android:text="100"
-            android:textColor="#ffffff"
-            android:id="@+id/bt_like"
-            android:layout_gravity="right" />
-
-    </LinearLayout>
+            android:layout_toEndOf="@+id/iv_header" />
 
 
-</LinearLayout>
+    </RelativeLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:background="@drawable/btn_ib_like"
+        android:text="100"
+        android:textColor="#ffffff"
+        android:id="@+id/bt_like"
+
+
+
+        android:layout_alignTop="@+id/rl3"
+        android:layout_alignEnd="@+id/iv" />
+
+
+</RelativeLayout>

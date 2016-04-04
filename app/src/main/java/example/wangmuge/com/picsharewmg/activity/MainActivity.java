@@ -1,7 +1,6 @@
 package example.wangmuge.com.picsharewmg.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +30,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import example.wangmuge.com.picsharewmg.Nav.ArcMenu;
 import example.wangmuge.com.picsharewmg.Nav.ArcMenu.OnMenuItemClickListener;
-import example.wangmuge.com.picsharewmg.adapter.PicAdapter;
 import example.wangmuge.com.picsharewmg.R;
+import example.wangmuge.com.picsharewmg.adapter.PicAdapter;
 import example.wangmuge.com.picsharewmg.http.MyVolley;
 import example.wangmuge.com.picsharewmg.http.util;
 
@@ -42,11 +41,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 
-    private SharedPreferences perferences;
+//    private SharedPreferences perferences;
 
 
     private PicAdapter mAdpater;
     private List<Map<String, Object>> mDatas;
+    boolean isSwitch = true;
 
 
     @Override
@@ -95,6 +95,16 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     Intent intent = new Intent();
                     intent.setClass(MainActivity.this, SetActivity.class);
                     startActivity(intent);
+                }
+                else if (pos == 5) {
+                    if(isSwitch == true) {
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        isSwitch = false;
+                    }else {
+                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                    }
                 }
             }
         });
