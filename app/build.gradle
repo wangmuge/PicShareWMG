@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "example.wangmuge.com.picsharewmg"
@@ -38,5 +38,7 @@ dependencies {
     compile 'com.wang.avi:library:1.0.2'
     compile 'com.nineoldandroids:library:2.4.0'
     compile project(':onekeyshare')
+    compile 'com.github.jd-alexander:LikeButton:0.1.8'
+    compile 'cn.pedant.sweetalert:library:1.3'
 
 }

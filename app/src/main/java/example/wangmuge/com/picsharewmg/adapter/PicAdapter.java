@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -101,6 +102,7 @@ public class PicAdapter extends RecyclerView.Adapter<PicAdapter.MyViewHolder> {
                 Intent intent = new Intent();
                 Bundle b = new Bundle();
                 b.putString("imgname", picname);
+                b.putString("sid",sid);
                 intent.putExtras(b);
                 intent.setClass(mContext, ImgDetailActivity.class);
                 mContext.startActivity(intent);
@@ -133,6 +135,7 @@ public class PicAdapter extends RecyclerView.Adapter<PicAdapter.MyViewHolder> {
 
                 request.setTag("like");
                 MyVolley.getHttpQueues().add(request);
+                Toast.makeText(mContext, "赞！", Toast.LENGTH_LONG).show();
                 holder.ib_like.setText(sum2);
                 holder.ib_like.setClickable(false);
 

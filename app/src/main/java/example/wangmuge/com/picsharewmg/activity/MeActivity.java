@@ -62,6 +62,10 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
         mDatas = new ArrayList<Map<String, Object>>();
 
         initData();
+        initView();
+    }
+
+    private void initView() {
         swiperefreshme.setOnRefreshListener(this);
 
         swiperefreshme.setColorSchemeResources( android.R.color.holo_green_light,android.R.color.holo_blue_bright,
@@ -80,64 +84,68 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
         swiperefreshme.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initData2();
+//                initData2();
+                mDatas.clear();
+                initData();
                 mAdpater.notifyDataSetChanged();
                 swiperefreshme.setRefreshing(false);
             }
         });
     }
 
-    private void initData2() {
-        mDatas.clear();
-        perfereneces = getSharedPreferences("user", 0);
-        userId = perfereneces.getInt("userid", 0);
-
-        String url = util.server_showUser + "id=" + userId;
 
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    response = response.getJSONObject("result");
-                    Log.i("json", "json = " + response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                try {
-
-
-                    JSONArray array = response.getJSONArray("result");
-
-                    for (int i = 0; i < array.length(); i++) {
-                        Map<String, Object> map = new HashMap<String, Object>();
-
-                        JSONObject jsons = array.getJSONObject(i);
-                        map.put("pic", jsons.optString("pic"));
-                        map.put("text", jsons.optString("text"));
-                        map.put("sid", jsons.optInt("sid"));
-                        mDatas.add(map);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Log.i("json", error.toString());
-            }
-
-        });
-
-        request.setTag("showuser2");
-        MyVolley.getHttpQueues().add(request);
-    }
+//    private void initData2() {
+//        mDatas.clear();
+//        perfereneces = getSharedPreferences("user", 0);
+//        userId = perfereneces.getInt("userid", 0);
+//
+//        String url = util.server_showUser + "id=" + userId;
+//
+//
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//
+//                try {
+//                    response = response.getJSONObject("result");
+//                    Log.i("json", "json = " + response);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//                try {
+//
+//
+//                    JSONArray array = response.getJSONArray("result");
+//
+//                    for (int i = 0; i < array.length(); i++) {
+//                        Map<String, Object> map = new HashMap<String, Object>();
+//
+//                        JSONObject jsons = array.getJSONObject(i);
+//                        map.put("pic", jsons.optString("pic"));
+//                        map.put("text", jsons.optString("text"));
+//                        map.put("sid", jsons.optInt("sid"));
+//                        mDatas.add(map);
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//                Log.i("json", error.toString());
+//            }
+//
+//        });
+//
+//        request.setTag("showuser2");
+//        MyVolley.getHttpQueues().add(request);
+//    }
 
 
     private void initData() {
@@ -182,10 +190,10 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
                     for (int i = 0; i < array.length(); i++) {
                         Map<String, Object> map = new HashMap<String, Object>();
 
-                        JSONObject jsons = array.getJSONObject(i);
-                        map.put("pic", jsons.optString("pic"));
-                        map.put("text", jsons.optString("text"));
-                        map.put("sid", json.optInt("sid"));
+                        JSONObject js = array.getJSONObject(i);
+                        map.put("pic", js.optString("pic"));
+                        map.put("text", js.optString("text"));
+                        map.put("id", js.optInt("sid"));
                         mDatas.add(map);
                     }
 
@@ -196,8 +204,7 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                Log.i("json", error.toString());
+     Log.i("json", error.toString());
             }
 
         });

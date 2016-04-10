@@ -28,8 +28,8 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import example.wangmuge.com.picsharewmg.Nav.ArcMenu;
-import example.wangmuge.com.picsharewmg.Nav.ArcMenu.OnMenuItemClickListener;
 import example.wangmuge.com.picsharewmg.R;
 import example.wangmuge.com.picsharewmg.adapter.PicAdapter;
 import example.wangmuge.com.picsharewmg.http.MyVolley;
@@ -47,18 +47,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private PicAdapter mAdpater;
     private List<Map<String, Object>> mDatas;
     boolean isSwitch = true;
+    private android.os.Handler handler = new android.os.Handler();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
         mDatas = new ArrayList<Map<String, Object>>();
         initData();
-        ButterKnife.bind(this);
+        initView();
 
 
+    }
+
+    private void initView() {
         ArcMenu view = (ArcMenu) findViewById(R.id.arcmenu);
 
         swiperefresh.setOnRefreshListener(this);
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
 
 
-        view.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+        view.setOnMenuItemClickListener(new ArcMenu.OnMenuItemClickListener() {
             @Override
             public void onClick(View view, int pos) {
                 // TODO Auto-generated method stub
@@ -79,9 +83,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 if (pos == 1) {
 //                    perferences = getSharedPreferences("user", 0);
 //                    perferences.edit().clear().commit();
-                    Intent intent = new Intent();
-                    intent.setClass(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("确认退出吗?")
+                            .setContentText("退出后要重新登录")
+                            .setCancelText("不！我还想呆会！")
+                            .setConfirmText("是！")
+                            .showCancelButton(true)
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    Intent intent = new Intent();
+                                    intent.setClass(MainActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
+
                 } else if (pos == 2) {
                     Intent intent = new Intent();
                     intent.setClass(MainActivity.this, UploadActivity.class);
@@ -97,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                     startActivity(intent);
                 }
                 else if (pos == 5) {
-                    if(isSwitch == true) {
+                    if(isSwitch) {
                         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
                         recyclerView.setLayoutManager(linearLayoutManager);
                         isSwitch = false;
@@ -109,82 +126,34 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
 
-
-
-        // initViews();
-        mAdpater = new PicAdapter(this, mDatas);
-        recyclerView.setAdapter(mAdpater);
-
-        recyclerView.setHasFixedSize(true);
         //设置recycleview布局管理
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         //设置recycleview分割线
+        recyclerView.setHasFixedSize(true);
+        mAdpater = new PicAdapter(this, mDatas);
+        recyclerView.setAdapter(mAdpater);
+
+
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initData2();
-               // mAdpater.notifyDataSetChanged();
-                swiperefresh.setRefreshing(false);
-            }
-        });
 
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDatas.clear();
+                        initData();
+                        Toast.makeText(MainActivity.this, "刷新成功", Toast.LENGTH_LONG).show();
+                        swiperefresh.setRefreshing(false);
 
-    }
-    public void onRefresh() {
-
-            }
-
-    private void initData2() {
-        mDatas.clear();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, util.server_showList, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    response = response.getJSONObject("result");
-                    Log.i("json", "json = " + response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-                try {
-                    JSONArray array = response.getJSONArray("result");
-
-
-                    for (int i = 0; i < array.length(); i++) {
-                        Map<String, Object> map = new HashMap<String, Object>();
-                        JSONObject json = array.getJSONObject(i);
-
-
-                        map.put("username", json.optString("username"));
-                        map.put("id", json.optInt("id"));
-                        map.put("sid", json.optInt("sid"));
-                        map.put("header", json.optString("header"));
-                        map.put("pic", json.optString("pic"));
-                        map.put("text", json.optString("text"));
-                        map.put("like", json.optInt("like"));
-                        mDatas.add(map);
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                }, 3000);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                Log.i("json", error.toString());
-            }
-
         });
-        request.setTag("showlist2");
-        MyVolley.getHttpQueues().add(request);
-
 
     }
+
 
     private void initData() {
 
@@ -230,10 +199,28 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
 
         });
-
-
         request.setTag("showlist");
         MyVolley.getHttpQueues().add(request);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        Toast.makeText(MainActivity.this, "1", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        Toast.makeText(MainActivity.this, "2", Toast.LENGTH_LONG).show();
+//        mAdpater.notifyDataSetChanged();
+//        mDatas.clear();
+//        initData2();
+//        initView();
+//        mAdpater = new PicAdapter(this, mDatas);
+//        recyclerView.setAdapter(mAdpater);
+//        mAdpater.notifyDataSetChanged();
     }
 
     @Override
@@ -266,4 +253,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 break;
         }
     }
+    public void onRefresh() {
+
+    }
+
 }

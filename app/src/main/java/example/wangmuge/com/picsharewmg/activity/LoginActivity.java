@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -53,17 +54,14 @@ public class LoginActivity extends Activity  {
     ImageButton tvClearName;
     @Bind(R.id.tv_clear_pwd)
     ImageButton tvClearPwd;
-
     private SharedPreferences.Editor editor;
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams. FLAG_FULLSCREEN);
         SharedPreferences perferences = getSharedPreferences("user", 0);
         editor = perferences.edit();
         if (perferences.getBoolean("firststart", true)) {
@@ -76,14 +74,13 @@ public class LoginActivity extends Activity  {
             startActivity(intent);
             finish();
         }
-//        tvTitle.setAnimateType(HTextViewType.ANVIL);
-//        tvTitle.animateText("Welcome"); // animate
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         initView();
-
+//      tvTitle.setAnimateType(HTextViewType.ANVIL);
+//      tvTitle.animateText("Welcome"); // animate
     }
-
 
 
     @Override
@@ -106,19 +103,12 @@ public class LoginActivity extends Activity  {
                 TimerTask task = new TimerTask() {
 
                     public void run() {
-
-
                         Volley_Post();
-
-
                     }
-
                 };
 
                 Timer timer = new Timer();
-
                 timer.schedule(task, 2000);
-
             }
         });
 
@@ -130,9 +120,7 @@ public class LoginActivity extends Activity  {
                 startActivity(ii);
             }
         });
-
         EditWatcher();
-
         tvClearName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,16 +149,11 @@ public class LoginActivity extends Activity  {
                     tvClearName.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
         password.addTextChangedListener(new TextWatcher() {
@@ -182,62 +165,42 @@ public class LoginActivity extends Activity  {
                     tvClearPwd.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
     }
-
     private void Volley_Post() {
 
 
         String name = username.getText().toString().trim();
         String psw = password.getText().toString().trim();
-
         String url = util.server_login + "username=" + name + "&" + "password=" + psw;
-
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject s) {
 
 //                tvTitle.setAnimateType(HTextViewType.ANVIL);
 //                tvTitle.animateText("Success"); // animate
-
                 User user = getUserFromJSON(s.optJSONArray("result").optJSONObject(0));
-
-
                 editor.putInt("userid", user.getId());
                 editor.putString("username", user.getUsername());
                 editor.putString("password", user.getPassword());
                 editor.putString("info", user.getInfo());
                 editor.putString("header", user.getHeader());
-
                 editor.commit();
 
-
                 Log.d("TAG", s.toString());
-
                 Intent intent = getIntent();
-
                 intent.setClass(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(intent);
                 Toast.makeText(LoginActivity.this, "恭喜"
                         + "登录成功", Toast.LENGTH_SHORT).show();
-
                 avloadingIndicatorView.setVisibility(View.INVISIBLE);
-
                 finish();
-
-
 
             }
         }, new Response.ErrorListener() {
@@ -260,11 +223,9 @@ public class LoginActivity extends Activity  {
             }
         }
 
-
         );
         request.setTag("Login");
         MyVolley.getHttpQueues().add(request);
-
 
     }
 
@@ -272,7 +233,6 @@ public class LoginActivity extends Activity  {
             JSONObject object) {
         User user = new User();
         if (object != null && !object.equals("")) {
-
             user.setId(object.optInt("id"));
             user.setUsername(object.optString("username"));
             user.setPassword(object.optString("password"));
@@ -281,7 +241,6 @@ public class LoginActivity extends Activity  {
         }
         return user;
     }
-
 
 
 }

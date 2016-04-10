@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import example.wangmuge.com.picsharewmg.R;
 import example.wangmuge.com.picsharewmg.activity.ImgDetailActivity;
 import example.wangmuge.com.picsharewmg.http.MyVolley;
@@ -42,6 +43,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     private List<Map<String,Object>> mDatas;
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
     int sid;
+    private String id;
+    private String picname;
 
 
     public static interface OnRecyclerViewItemClickListener {
@@ -71,21 +74,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder,int position) {//改成自定义的viewholder
 
         holder.itemView.setTag(mDatas.get(position));
-
+        holder.ib_del.setTag(position);
         holder.tv_text.setText(mDatas.get(position).get("text").toString());
-
-        holder.ib_del.setTag(mDatas.get(position));
-
-
-        final String id= mDatas.get(position).get("sid").toString();
-        final String picname=mDatas.get(position).get("pic").toString();
-
-
+//        holder.ib_del.setTag(mDatas.get(position));
+//        holder.itemView.setTag(position);
+//         id= mDatas.get(position).get("sid").toString();
+        picname=mDatas.get(position).get("pic").toString();
         String url=util.server_showPic+"pic="+picname;
-
         ImageLoader loader =new ImageLoader(MyVolley.getHttpQueues(),new BitmapCache());
         ImageLoader.ImageListener listener=ImageLoader.getImageListener(holder.iv_img,0,0);
-        loader.get(url, listener,200,400);
+        loader.get(url, listener,600,600);
 
 
         holder.iv_img.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +102,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         holder.ib_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final int tag = (int) view.getTag();
+                new SweetAlertDialog(mContext, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("确定删除吗?")
+                        .setContentText("删除后将看不到这张美美的照片喔!")
+                        .setConfirmText("好！残忍删了")
+                        .setCancelText("不！只是手贱")
 
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog
+                                        .setTitleText("已删除！")
+                                        .setContentText("Bye ~ 过去")
+                                        .setConfirmText("OK")
+                                        .showCancelButton(false)
+                                        .setConfirmClickListener(null)
+                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 
-                String url = util.server_del + "id=" + id;
+                String ids = mDatas.get(tag).get("id").toString();
+                String url = util.server_del + "id=" + ids;
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -125,6 +140,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                 });
                 request.setTag("del");
                 MyVolley.getHttpQueues().add(request);
+                            }
+                        })
+                        .show();
+
+
             }
         });
 
