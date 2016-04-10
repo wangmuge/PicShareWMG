@@ -78,6 +78,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true">
@@ -85,13 +86,13 @@
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avloadingIndicatorView_upload"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            htext:indicator="BallPulseSync"
+            htext:indicator_color="#2fcc6a"
             android:visibility="invisible"
-            htext:indicator="Pacman"
-            htext:indicator_color="#2fcc6a" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
         </LinearLayout>
