@@ -7,9 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,24 +40,21 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Bind(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
 
-//    private SharedPreferences perferences;
-
-
     private PicAdapter mAdpater;
     private List<Map<String, Object>> mDatas;
     boolean isSwitch = true;
     private android.os.Handler handler = new android.os.Handler();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mDatas = new ArrayList<Map<String, Object>>();
         initData();
         initView();
-
 
     }
 
@@ -72,14 +68,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
-
         view.setOnMenuItemClickListener(new ArcMenu.OnMenuItemClickListener() {
             @Override
             public void onClick(View view, int pos) {
                 // TODO Auto-generated method stub
                 String tag = (String) view.getTag();
-                Toast.makeText(MainActivity.this, tag, Toast.LENGTH_SHORT).show();
+
                 if (pos == 1) {
 //                    perferences = getSharedPreferences("user", 0);
 //                    perferences.edit().clear().commit();
@@ -123,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                         recyclerView.setLayoutManager(linearLayoutManager);
                     }
                 }
+                Toast.makeText(MainActivity.this, tag, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -133,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         recyclerView.setHasFixedSize(true);
         mAdpater = new PicAdapter(this, mDatas);
         recyclerView.setAdapter(mAdpater);
-
 
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -154,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-
     private void initData() {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, util.server_showList, new Response.Listener<JSONObject>() {
@@ -167,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
                 try {
                     JSONArray array = response.getJSONArray("result");
@@ -207,43 +199,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     protected void onResume() {
         super.onResume();
-//        Toast.makeText(MainActivity.this, "1", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-//        Toast.makeText(MainActivity.this, "2", Toast.LENGTH_LONG).show();
-//        mAdpater.notifyDataSetChanged();
-//        mDatas.clear();
-//        initData2();
-//        initView();
-//        mAdpater = new PicAdapter(this, mDatas);
-//        recyclerView.setAdapter(mAdpater);
-//        mAdpater.notifyDataSetChanged();
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);

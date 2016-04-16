@@ -7,12 +7,9 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="32dp"
     android:orientation="vertical"
     tools:context=".activity.UploadActivity">
-
-
-
 
 
         <EditText
@@ -31,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-
         android:orientation="horizontal"
 
 
@@ -51,7 +47,6 @@
             android:id="@+id/ib_img"
             android:layout_height="80dp"
             android:background="@drawable/btn_upload_img"
-
             android:layout_marginRight="100dp"
             android:scaleType="fitXY"
 
@@ -59,20 +54,13 @@
         <Button
             android:layout_width="80dp"
             android:layout_height="80dp"
-
             android:text="发表"
-
             android:textSize="18dp"
             android:textColor="#faf8f8"
             android:background="@drawable/btn_upload"
             android:id="@+id/upload"
 
-
-
-
-
             />
-
 
     </LinearLayout>
     <RelativeLayout

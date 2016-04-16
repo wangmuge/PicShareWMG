@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -57,6 +58,8 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_me);
         ButterKnife.bind(this);
         mDatas = new ArrayList<Map<String, Object>>();
@@ -77,7 +80,7 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
 
 
         // recyclerViewMe.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMe.setLayoutManager(linearLayoutManager);
 
 

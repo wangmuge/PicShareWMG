@@ -28,7 +28,7 @@
             android:layout_height="90dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="visible"
+            android:visibility="gone"
             htext:indicator="BallRotate"
             htext:indicator_color="#2fcc6a" />
     </RelativeLayout>

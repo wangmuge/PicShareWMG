@@ -32,7 +32,6 @@ public class HomeActivity extends AppCompatActivity {
     private GuideFragment fragment00, fragment01, fragment02, fragment03;
     private TextView tv_avatar_you;
     private TextView tv_register;
-
     private BlurringView blurringView;
 
 
@@ -40,35 +39,26 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
-
         setFullscreen();
-
         fragment00 = new GuideFragment();
         fragment01 = new GuideFragment();
         fragment02 = new GuideFragment();
         fragment03 = new GuideFragment();
-
         fragmentList.add(fragment00);
         fragmentList.add(fragment01);
         fragmentList.add(fragment02);
         fragmentList.add(fragment03);
-
 
         viewpager = (ViewPager) findViewById(R.id.viewpager);
         iv_device = (ImageView) findViewById(R.id.iv_device);
         iv_final_photo = (ImageView) findViewById(R.id.iv_final_photo);
         tv_avatar_you = (TextView) findViewById(R.id.tv_avatar_you);
         tv_register = (TextView) findViewById(R.id.tv_register);
-
         blurringView = (BlurringView) findViewById(R.id.blurringView);
-
         ll_rows = (LinearLayout) findViewById(R.id.ll_rows);
         ll_comments = (LinearLayout) findViewById(R.id.ll_comments);
-
         iv_initial_phone = (ImageView) findViewById(R.id.iv_initial_phone);
-
         View blurredView = findViewById(R.id.blurredView);
         blurringView.setBlurredView(blurredView);
 
@@ -90,8 +80,6 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     private void setFullscreen() {
@@ -119,7 +107,6 @@ public class HomeActivity extends AppCompatActivity {
             return fragmentList.size();
         }
     }
-
 
 
     class HKTransformer implements ViewPager.PageTransformer {
@@ -213,7 +200,6 @@ public class HomeActivity extends AppCompatActivity {
 
                     tv_register.setTranslationY(300 - 300 * f);
                 }
-
 
             } else { // (1,+Infinity]
                 // This page is way off-screen to the right.

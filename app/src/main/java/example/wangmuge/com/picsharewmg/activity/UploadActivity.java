@@ -9,9 +9,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,6 +24,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.wang.avi.AVLoadingIndicatorView;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,6 +52,7 @@ public class UploadActivity extends Activity {
 
     private static final int CHOOSE_PICTURE = 1;
     private static final int TAKE_PICTURE = 0;
+    private static final int REQUEST_SELECT_PICTURE = 2;
     @Bind(R.id.avloadingIndicatorView_upload)
     AVLoadingIndicatorView avloadingIndicatorViewUpload;
 
@@ -64,6 +68,8 @@ public class UploadActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_upload);
         ButterKnife.bind(this);
         initview();
@@ -77,8 +83,7 @@ public class UploadActivity extends Activity {
             public void onClick(View view) {
                 Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 openAlbumIntent.setType("image/*");
-                startActivityForResult(openAlbumIntent, CHOOSE_PICTURE);
-
+                startActivityForResult(openAlbumIntent, REQUEST_SELECT_PICTURE);
 
             }
         });
@@ -86,7 +91,6 @@ public class UploadActivity extends Activity {
         lvImg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 try {
                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -136,17 +140,9 @@ public class UploadActivity extends Activity {
                 case TAKE_PICTURE:
 
                     Bitmap bitmap = BitmapFactory.decodeFile(mPhotoPath, null);
-
                     myBitmap = bitmap;
                     lvImg.setImageBitmap(bitmap);
-//                    try {
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-
                     ibImg.setVisibility(View.INVISIBLE);
-
 
                     break;
                 case CHOOSE_PICTURE:
@@ -167,6 +163,34 @@ public class UploadActivity extends Activity {
                         System.out.println(e.getMessage());
                     }
                     ibImg.setVisibility(View.INVISIBLE);
+                    break;
+                case REQUEST_SELECT_PICTURE:
+                    final Uri selectedUri = data.getData();
+                    if (selectedUri != null) {
+                        startCropActivity(data.getData());
+                    } else {
+                        Toast.makeText(UploadActivity.this, "没有接受到图片", Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+
+                case UCrop.REQUEST_CROP:
+                    final Uri resultUri = UCrop.getOutput(data);
+                    ContentResolver resolver = getContentResolver();
+                    // 获得图片的uri
+                    // 将图片内容解析成字节数组
+                    try {
+                        mContent = readStream(resolver.openInputStream(Uri
+                                .parse(resultUri.toString())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    // 将字节数组转换为ImageView可调用的Bitmap对象
+                    myBitmap = getPicFromBytes(mContent, null);
+                    // //把得到的图片绑定在控件上显示
+                    lvImg.setImageBitmap(myBitmap);
+                    ibImg.setVisibility(View.INVISIBLE);
+                    // postFile();
                     break;
 
 
@@ -228,11 +252,7 @@ public class UploadActivity extends Activity {
         client.post(url, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//                Intent intent = getIntent();
-//
-//                intent.setClass(UploadActivity.this, MainActivity.class);
-//
-//                startActivity(intent);
+
                 Toast.makeText(UploadActivity.this, "发表成功", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -253,29 +273,43 @@ public class UploadActivity extends Activity {
                 break;
         }
     }
-//
-//        String path = mPhotoPath;
-//        File file = new File(path);
-//        if (file.exists() && file.length() > 0) {
-//            AsyncHttpClient client = new AsyncHttpClient();
-//            RequestParams params = new RequestParams();
-//            params.put("img", file);
-//            client.post("http://172.16.154.41:8080/PicShareWMG/uploadimg.action", params, new AsyncHttpResponseHandler() {
-//
-//
-//                @Override
-//                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-//
-//
-//                }
-//
-//                @Override
-//                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable eerror) {
-//
-//                    Log.i("eerror",eerror.toString());
-//                }
-//            });
-//
-//        }
+    private void startCropActivity(@NonNull Uri uri) {
+         Uri mDestinationUri = Uri.fromFile(new File(getCacheDir(), getPhotoFileName()));
+        UCrop uCrop = UCrop.of(uri, mDestinationUri);
+        uCrop = basisConfig(uCrop);
+        uCrop
+                .withAspectRatio(1,1)
+                .withMaxResultSize(800, 800)
+                .start(UploadActivity.this);
+
+    }
+    private UCrop basisConfig(@NonNull UCrop uCrop) {
+
+        try {
+            float ratioX = 4;
+            float ratioY = 3;
+            if (ratioX > 0 && ratioY > 0) {
+                uCrop = uCrop.withAspectRatio(ratioX, ratioY);
+            }
+        } catch (NumberFormatException e) {
+
+        }
+
+
+
+        try {
+            int maxWidth = 800;
+            int maxHeight = 800;
+            if (maxWidth > 0 && maxHeight > 0) {
+                uCrop = uCrop.withMaxResultSize(maxWidth, maxHeight);
+            }
+        } catch (NumberFormatException e) {
+
+        }
+
+
+        return uCrop;
+    }
+
 
 }
