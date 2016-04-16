@@ -276,39 +276,11 @@ public class UploadActivity extends Activity {
     private void startCropActivity(@NonNull Uri uri) {
          Uri mDestinationUri = Uri.fromFile(new File(getCacheDir(), getPhotoFileName()));
         UCrop uCrop = UCrop.of(uri, mDestinationUri);
-        uCrop = basisConfig(uCrop);
         uCrop
                 .withAspectRatio(1,1)
                 .withMaxResultSize(800, 800)
                 .start(UploadActivity.this);
 
-    }
-    private UCrop basisConfig(@NonNull UCrop uCrop) {
-
-        try {
-            float ratioX = 4;
-            float ratioY = 3;
-            if (ratioX > 0 && ratioY > 0) {
-                uCrop = uCrop.withAspectRatio(ratioX, ratioY);
-            }
-        } catch (NumberFormatException e) {
-
-        }
-
-
-
-        try {
-            int maxWidth = 800;
-            int maxHeight = 800;
-            if (maxWidth > 0 && maxHeight > 0) {
-                uCrop = uCrop.withMaxResultSize(maxWidth, maxHeight);
-            }
-        } catch (NumberFormatException e) {
-
-        }
-
-
-        return uCrop;
     }
 
 
