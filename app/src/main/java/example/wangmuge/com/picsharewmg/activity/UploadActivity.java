@@ -113,10 +113,15 @@ public class UploadActivity extends Activity {
             public void onClick(View view) {
 
 
-                avloadingIndicatorViewUpload.setVisibility(View.VISIBLE);
+
 
                 try {
-                    postFile();
+                    if(myBitmap == null){
+                        Toast.makeText(UploadActivity.this, "你没有选择图片！", Toast.LENGTH_SHORT).show();
+                    }else{
+                        avloadingIndicatorViewUpload.setVisibility(View.VISIBLE);
+                        postFile();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -233,19 +238,13 @@ public class UploadActivity extends Activity {
         baos.close();
         byte[] buffer = baos.toByteArray();
         System.out.println("图片的大小：" + buffer.length);
-
         //将图片的字节流数据加密成base64字符输出
         String photo = Base64.encodeToString(buffer, 0, buffer.length, Base64.DEFAULT);
-
-
         SharedPreferences perfereneces = getSharedPreferences("user", 0);
         userId = perfereneces.getInt("userid", 0);
         title = etText.getText().toString().trim();
-
         RequestParams params = new RequestParams();
         params.put("photo", photo);
-
-
         String url = util.server_upload + "id=" + userId + "&pic=" + getPhotoFileName() + "&text=" + title;
 
         AsyncHttpClient client = new AsyncHttpClient();

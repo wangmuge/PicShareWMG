@@ -1,5 +1,6 @@
 package example.wangmuge.com.picsharewmg.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import example.wangmuge.com.picsharewmg.R;
 import example.wangmuge.com.picsharewmg.adapter.UserAdapter;
 import example.wangmuge.com.picsharewmg.http.MyVolley;
@@ -48,6 +50,7 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
     SwipeRefreshLayout swiperefreshme;
     private UserAdapter mAdpater;
     private List<Map<String, Object>> mDatas;
+    private boolean dialog = true;
     String userName;
     String userHeader;
     String userInfo;
@@ -63,7 +66,6 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
         setContentView(R.layout.activity_me);
         ButterKnife.bind(this);
         mDatas = new ArrayList<Map<String, Object>>();
-
         initData();
         initView();
     }
@@ -77,9 +79,7 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
 
         mAdpater = new UserAdapter(this, mDatas);
         recyclerViewMe.setAdapter(mAdpater);
-
-
-        // recyclerViewMe.setHasFixedSize(true);
+        recyclerViewMe.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMe.setLayoutManager(linearLayoutManager);
 
@@ -88,14 +88,47 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
             @Override
             public void onRefresh() {
 //                initData2();
+
+                showTips();
                 mDatas.clear();
                 initData();
                 mAdpater.notifyDataSetChanged();
                 swiperefreshme.setRefreshing(false);
+//                showTips();
+
             }
         });
     }
 
+    private void showTips() {
+
+        if(dialog == true) {
+            if (mDatas.size() == 0) {
+                new SweetAlertDialog(MeActivity.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("你还没添加心情噢！")
+                        .setContentText("去发表说说去")
+                        .setCancelText("我再逛逛。")
+                        .setConfirmText("Let's Go!")
+                        .showCancelButton(true)
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                Intent intent = new Intent();
+                                intent.setClass(MeActivity.this, UploadActivity.class);
+                                startActivity(intent);
+                                sweetAlertDialog.dismiss();
+
+                            }
+                        })
+                        .show();
+                dialog = false;
+            } else {
+
+            }
+        }else{
+            return;
+        }
+    }
 
 
 //    private void initData2() {
@@ -200,6 +233,7 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
                         mDatas.add(map);
                     }
 
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -217,6 +251,14 @@ public class MeActivity extends AppCompatActivity implements SwipeRefreshLayout.
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mDatas.size() > 0){
+            mAdpater.notifyDataSetChanged();
+        }
+//        showTips();
+    }
 
     @Override
     public void onRefresh() {

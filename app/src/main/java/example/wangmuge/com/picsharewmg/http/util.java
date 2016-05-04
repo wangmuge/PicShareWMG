@@ -8,7 +8,7 @@ public class util {
     //public static String server = "http://192.168.56.1:8080/PicShareWMG";
    // public static String server = "http://172.16.154.10:8080/PicShareWMG";无网线地址
 
-    public static String server = "http://172.16.154.201:8080/PicShareWMG";//wifi地址
+    public static String server = "http://172.16.154.232:8080/PicShareWMG";//wifi地址
     public static String server_login = server + "/loginCheck?";
     public static String server_showList = server + "/listShow.action";
     public static String server_showUser = server + "/listUser?";

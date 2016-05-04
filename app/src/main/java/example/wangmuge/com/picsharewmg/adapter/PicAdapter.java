@@ -48,6 +48,11 @@ public class PicAdapter extends RecyclerView.Adapter<PicAdapter.MyViewHolder> {
         mInflater = LayoutInflater.from(mContext);
     }
 
+    public void Refresh(List<Map<String,Object>> list){
+        mDatas = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.pic_item2, parent, false);
@@ -135,7 +140,7 @@ public class PicAdapter extends RecyclerView.Adapter<PicAdapter.MyViewHolder> {
 
                 request.setTag("like");
                 MyVolley.getHttpQueues().add(request);
-                Toast.makeText(mContext, "赞！", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "赞！+1", Toast.LENGTH_LONG).show();
                 holder.ib_like.setText(sum2);
                 holder.ib_like.setClickable(false);
 

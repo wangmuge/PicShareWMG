@@ -199,6 +199,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     protected void onResume() {
         super.onResume();
+//        int position = mDatas.size();
+//        if(position > 0){
+//            mAdpater.notifyDataSetChanged();
+//        }
+
+        mAdpater.Refresh(mDatas);
     }
 
     @Override

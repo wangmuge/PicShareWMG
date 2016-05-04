@@ -71,7 +71,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
 
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder,int position) {//改成自定义的viewholder
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {//改成自定义的viewholder
 
         holder.itemView.setTag(mDatas.get(position));
         holder.ib_del.setTag(position);
@@ -125,6 +125,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        int p = mDatas.size();
+                        if(p > 0){
+                            mDatas.remove(p-1);
+                            notifyItemRemoved(tag);
+//                            notifyDataSetChanged();
+                        }
+
                         Toast.makeText(mContext,
                                  "删除成功", Toast.LENGTH_SHORT).show();
                     }
